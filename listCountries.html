@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Countries</title>
+</head>
+<body>
+    <button onclick=showCapitalCountries()>Show countries</button>
+    <div id = "feed"></div>
+    <script>
+
+        function showCapitalCountries(){
+         let xhr =  new XMLHttpRequest()
+         xhr.open('GET' ,'https://restcountries.com/v3.1/all',true)//initialize the request
+         xhr.onload = function(){ //handling function
+         if (xhr.status == 200){
+             console.log('successfully done')
+             let countries = JSON.parse(this.response)
+             console.log(countries)
+             countries.forEach(country => {
+                const countryCard= document.createElement('div')
+                const countryCardRegion= document.createElement('h1')
+                countryCard.innerHTML = country.capital
+                countryCardRegion.innerHTML=country.region
+                countryCard.appendChild(countryCardRegion)
+                
+                document.getElementById('feed').appendChild(countryCard)
+             } )
+         }
+         }
+         
+         
+         xhr.send()//send the request
+        
+
+        }
+    </script>
+</body>
+</html>
